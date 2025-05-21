@@ -1,0 +1,24 @@
+modules = ["python-base-3.12", "postgresql-17"]
+
+run = "uv venv && uv pip install -r requirements.txt && python src/main.py"
+
+[nix]
+channel = "stable-24_05"
+packages = ["imagemagickBig", "python312", "python312Packages.uv"]
+
+[deployment]
+run = [
+  "sh",
+  "-c",
+  "uv venv && uv pip install -r requirements.txt && python main.py",
+]
+
+[workflows]
+
+[[workflows.workflow]]
+name = "workflow"
+mode = "sequential"
+author = 42741481
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
